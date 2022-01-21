@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+cat /home/builder/.rpmmacros && env
+
 cd /home/builder/rpm || exit 1
 
 spectool --get-files ./*.spec
