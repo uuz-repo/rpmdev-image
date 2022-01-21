@@ -1,12 +1,14 @@
 #!/usr/bin/bash
 
-cd /home/builder/rpm || exit 
+cd /home/builder/rpm || exit 1
 
-sudo yum install -y epel-release gcc make createrepo git 
-PKGS=$(cat ./*.spec | grep "\s*#\s*X-BuildRequires\s*:" | awk -F ":" '{print $2}' | xargs) && [[ -n $PKGS ]] && sudo yum install -y $PKGS
-for url in $(rpmspec --parse ./*.spec  | grep -E "^Source" | awk '{print $2}' | grep http)
-do
-curl -sO "$url"
-done
+spectool --get-files ./*.spec
+rpmbuild -bs ./*.spec
+sudo yum-builddep --assumeyes *.src.rpm
+rpmbuild -bb *.spec
 
-rpmbuild -ba ./*.spec
+if [ $RSYNC_UPLOAD ];then
+  export RSYNC_PASSWORD=${RSYNC_PASSWORD} 
+  rsync -avSH RPMS/*/*.rpm ${RSYNC_USER}@${RSYNC_SERVER}::${RSYNC_MODULE}/centos/$(rpm -qf /etc/os-release --provides  | grep -E releasever | tail -n1 | awk '{print $3}')/os/$(arch)/
+  rsync -avSH SRPMS/*.src.rpm ${RSYNC_USER}@${RSYNC_SERVER}::${RSYNC_MODULE}/centos/$(rpm -qf /etc/os-release --provides  | grep -E releasever | tail -n1 | awk '{print $3}')/os/$(arch)/
+fi
