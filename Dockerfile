@@ -11,6 +11,7 @@ RUN yum install -y gcc gcc-c++ \
                    yum-utils rpm-build \
                    createrepo \
                    rpmdevtools \
+                   rsync \
                    epel-release && \ 
     yum clean all
 
