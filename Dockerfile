@@ -24,6 +24,8 @@ RUN useradd builder -u 1000 -m -G users,wheel && \
     echo "%_specdir   %{_topdir}"        >> /home/builder/.rpmmacros && \
     echo "%_rpmdir    %{_topdir}/RPMS"        >> /home/builder/.rpmmacros && \
     echo "%_srcrpmdir %{_topdir}/SRPMS"        >> /home/builder/.rpmmacros && \
+    echo "%dist .el7.uuz" >> /home/builder/.rpmmacros && \
+    echo "%vendor uuz" /home/builder/.rpmmacros && \
     mkdir /home/builder/rpm && \
     chown -R builder /home/builder
 USER builder
