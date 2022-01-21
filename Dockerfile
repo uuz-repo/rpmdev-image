@@ -1,5 +1,6 @@
 ARG releasever=7
 FROM centos:${releasever}
+ARG releasever=7
 
 RUN yum install -y gcc gcc-c++ \
                    libtool libtool-ltdl \
@@ -17,7 +18,7 @@ RUN yum install -y gcc gcc-c++ \
 
 COPY pkg /srv/pkg
 
-ENV FLAVOR=rpmbuild OS=centos DIST=el${releasever:-7}
+ENV FLAVOR=rpmbuild OS=centos DIST=el${releasever}
 
 RUN useradd builder -u 1000 -m -G users,wheel && \
     echo "builder ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers && \
