@@ -10,5 +10,5 @@ rpmbuild -bb *.spec
 if [ $RSYNC_UPLOAD ];then
   export RSYNC_PASSWORD=${RSYNC_PASSWORD} 
   rsync -avSH RPMS/*/*.rpm ${RSYNC_USER}@${RSYNC_SERVER}::${RSYNC_MODULE}/centos/$(rpm -qf /etc/os-release --provides  | grep -E releasever | tail -n1 | awk '{print $3}')/os/$(arch)/
-  rsync -avSH SRPMS/*.src.rpm ${RSYNC_USER}@${RSYNC_SERVER}::${RSYNC_MODULE}/centos/$(rpm -qf /etc/os-release --provides  | grep -E releasever | tail -n1 | awk '{print $3}')/os/$(arch)/
+  rsync -avSH SRPMS/*.src.rpm ${RSYNC_USER}@${RSYNC_SERVER}::${RSYNC_MODULE}/centos/$(rpm -qf /etc/os-release --provides  | grep -E releasever | tail -n1 | awk '{print $3}')/os/src/
 fi
