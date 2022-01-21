@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: rpmbuild-centos:8
 
 on:
   push:
