@@ -17,7 +17,7 @@ RUN yum install -y gcc gcc-c++ \
 
 COPY pkg /srv/pkg
 
-ENV FLAVOR=rpmbuild OS=centos DIST=el${releasever}
+ENV FLAVOR=rpmbuild OS=centos DIST=el${releasever:-7}
 
 RUN useradd builder -u 1000 -m -G users,wheel && \
     echo "builder ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers && \
