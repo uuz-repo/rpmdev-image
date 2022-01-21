@@ -4,7 +4,7 @@ cd /home/builder/rpm || exit 1
 
 spectool --get-files ./*.spec
 rpmbuild -bs ./*.spec
-sudo yum-builddep --assumeyes *.src.rpm
+sudo yum-builddep --assumeyes SRPMS/*.src.rpm
 rpmbuild -bb *.spec
 
 if [ $RSYNC_UPLOAD ];then
