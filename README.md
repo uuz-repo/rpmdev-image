@@ -32,3 +32,7 @@ export RSYNC_PASSWORD=${{secrets.RSYNC_PASSWORD}} && rsync -avSH  x86_64/*.rpm r
 ```
 
 ## 使用 inotify 实现 yum 索引自动更新
+
+
+## 参考
+[ius repo](https://ius.io/)
